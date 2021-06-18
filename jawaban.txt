@@ -1,0 +1,338 @@
+jawaban no 1
+
+
+MariaDB [(none)]> create database myshop;
+Query OK, 1 row affected (0.07 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dbwebsite1         |
+| information_schema |
+| myshop             |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+7 rows in set (0.00 sec)
+
+MariaDB [(none)]> use myshop;
+Database changed
+
+
+jawaban no 2
+
+MariaDB [(none)]> create database myshop;
+Query OK, 1 row affected (0.07 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dbwebsite1         |
+| information_schema |
+| myshop             |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+7 rows in set (0.00 sec)
+
+MariaDB [(none)]> use myshop;
+Database changed
+MariaDB [myshop]> create table users (
+    -> id int primary key auto_increment,
+    -> nama varchar(255),
+    -> email varchar(255),
+    -> password varchar(255)
+    -> );
+Query OK, 0 rows affected (4.62 sec)
+
+MariaDB [myshop]> show tables;
++------------------+
+| Tables_in_myshop |
++------------------+
+| users            |
++------------------+
+1 row in set (0.00 sec)
+
+MariaDB [myshop]> dscribe users;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'dscribe users' at line 1
+MariaDB [myshop]> describe users;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| id       | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nama     | varchar(255) | YES  |     | NULL    |                |
+| email    | varchar(255) | YES  |     | NULL    |                |
+| password | varchar(255) | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.08 sec)
+
+MariaDB [myshop]> create table items (
+    -> id int primary key auto_increment,
+    -> nama varchar(255),
+    -> description varchar(255),
+    -> price int,
+    -> stock int,
+    -> category_id int foreign key
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'foreign key
+)' at line 7
+MariaDB [myshop]> create table items (
+    -> id int primary key auto_increment,
+    -> name varchar(255),
+    -> description varchar(255),
+    -> price integer,
+    -> stock integer,
+    -> foreign key(category_id) references users(id)
+    -> );
+ERROR 1072 (42000): Key column 'category_id' doesn't exist in table
+MariaDB [myshop]> create table items (
+    -> id int primary key auto_increment,
+    -> name varchar(255),
+    -> description varchar(255),
+    -> price integer,
+    -> stock integer,
+    -> primary key(id),
+    -> category_id integer,
+    -> foreign key(category_id) references users(id)
+    -> );
+ERROR 1068 (42000): Multiple primary key defined
+MariaDB [myshop]> create table items (
+    -> id int primary key auto_increment,
+    -> name varchar(255),
+    -> description varchar(255),
+    -> price integer,
+    -> stock integer,
+    -> category_id integer,
+    -> foreign key(category_id) references users(id)
+    -> );
+Query OK, 0 rows affected (0.30 sec)
+
+MariaDB [myshop]> describe items;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name        | varchar(255) | YES  |     | NULL    |                |
+| description | varchar(255) | YES  |     | NULL    |                |
+| price       | int(11)      | YES  |     | NULL    |                |
+| stock       | int(11)      | YES  |     | NULL    |                |
+| category_id | int(11)      | YES  | MUL | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.03 sec)
+
+MariaDB [myshop]> create table categories (
+    -> id integer primary key auto_increment,
+    -> name varchar(255)
+    -> );
+Query OK, 0 rows affected (0.24 sec)
+
+MariaDB [myshop]> describe categories;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(255) | YES  |     | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+2 rows in set (0.03 sec)
+
+MariaDB [myshop]> show tabels;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'tabels' at line 1
+MariaDB [myshop]> show tables;
++------------------+
+| Tables_in_myshop |
++------------------+
+| categories       |
+| items            |
+| users            |
++------------------+
+3 rows in set (0.00 sec)
+
+
+jawaban no 3
+
+MariaDB [myshop]> insert into users value ('', 'john doe', 'john@doe.com', 'john123');
+Query OK, 1 row affected, 1 warning (0.10 sec)
+
+MariaDB [myshop]> select * from users;
++----+----------+--------------+----------+
+| id | nama     | email        | password |
++----+----------+--------------+----------+
+|  1 | john doe | john@doe.com | john123  |
++----+----------+--------------+----------+
+1 row in set (0.00 sec)
+
+MariaDB [myshop]> insert into users value ('', 'jane doe', 'jane@doe.com', 'jane123');
+Query OK, 1 row affected, 1 warning (0.09 sec)
+
+MariaDB [myshop]> select * users;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'users' at line 1
+MariaDB [myshop]> select * from users;
++----+----------+--------------+----------+
+| id | nama     | email        | password |
++----+----------+--------------+----------+
+|  1 | john doe | john@doe.com | john123  |
+|  2 | jane doe | jane@doe.com | jane123  |
++----+----------+--------------+----------+
+2 rows in set (0.00 sec)
+
+MariaDB [myshop]> insert into categories value ('', 'gedget');
+Query OK, 1 row affected, 1 warning (0.07 sec)
+
+MariaDB [myshop]> insert into categories value ('', 'cloth');
+Query OK, 1 row affected, 1 warning (0.09 sec)
+
+MariaDB [myshop]> insert into categories value (('', 'men'), ('', 'women'), ('', 'branded'));
+ERROR 1241 (21000): Operand should contain 1 column(s)
+MariaDB [myshop]> insert into categories value ('', 'men');
+Query OK, 1 row affected, 1 warning (0.07 sec)
+
+MariaDB [myshop]> insert into categories value ('', 'women');
+Query OK, 1 row affected, 1 warning (0.05 sec)
+
+MariaDB [myshop]> insert into categories value ('', 'branded');
+Query OK, 1 row affected, 1 warning (0.06 sec)
+
+MariaDB [myshop]> select * from categories;
++----+---------+
+| id | name    |
++----+---------+
+|  1 | gedget  |
+|  2 | cloth   |
+|  3 | men     |
+|  4 | women   |
+|  5 | branded |
++----+---------+
+5 rows in set (0.00 sec)
+
+MariaDB [myshop]> insert into items value ('', 'samsungb60', 'hape keren dari merek samsung', 400000, 100, 1);
+Query OK, 1 row affected, 1 warning (0.31 sec)
+
+MariaDB [myshop]> insert into items value ('', 'uniklooh', 'bajunya keren sekali beli dong', 500000, 50, 2);
+Query OK, 1 row affected, 1 warning (0.07 sec)
+
+MariaDB [myshop]> insert into items value ('', 'IMOwatch', 'jamnya keren sekali beli dong', 2000000, 10, 1);
+Query OK, 1 row affected, 1 warning (0.07 sec)
+
+MariaDB [myshop]> select * from items;
++----+------------+--------------------------------+---------+-------+-------------+
+| id | name       | description                    | price   | stock | category_id |
++----+------------+--------------------------------+---------+-------+-------------+
+|  1 | samsungb60 | hape keren dari merek samsung  |  400000 |   100 |           1 |
+|  2 | uniklooh   | bajunya keren sekali beli dong |  500000 |    50 |           2 |
+|  3 | IMOwatch   | jamnya keren sekali beli dong  | 2000000 |    10 |           1 |
++----+------------+--------------------------------+---------+-------+-------------+
+3 rows in set (0.00 sec)
+
+
+no 4
+
+MariaDB [myshop]> select * from items;
++----+------------+--------------------------------+---------+-------+-------------+
+| id | name       | description                    | price   | stock | category_id |
++----+------------+--------------------------------+---------+-------+-------------+
+|  1 | samsungb60 | hape keren dari merek samsung  |  400000 |   100 |           1 |
+|  2 | uniklooh   | bajunya keren sekali beli dong |  500000 |    50 |           2 |
+|  3 | IMOwatch   | jamnya keren sekali beli dong  | 2000000 |    10 |           1 |
++----+------------+--------------------------------+---------+-------+-------------+
+3 rows in set (0.00 sec)
+
+MariaDB [myshop]> select nama, email from users;
++----------+--------------+
+| nama     | email        |
++----------+--------------+
+| john doe | john@doe.com |
+| jane doe | jane@doe.com |
++----------+--------------+
+2 rows in set (0.00 sec)
+
+MariaDB [myshop]> select id, nama, email from users;
++----+----------+--------------+
+| id | nama     | email        |
++----+----------+--------------+
+|  1 | john doe | john@doe.com |
+|  2 | jane doe | jane@doe.com |
++----+----------+--------------+
+2 rows in set (0.00 sec)
+
+MariaDB [myshop]> select * from items where price > 1000000;
++----+----------+-------------------------------+---------+-------+-------------+
+| id | name     | description                   | price   | stock | category_id |
++----+----------+-------------------------------+---------+-------+-------------+
+|  3 | IMOwatch | jamnya keren sekali beli dong | 2000000 |    10 |           1 |
++----+----------+-------------------------------+---------+-------+-------------+
+1 row in set (0.00 sec)
+
+MariaDB [myshop]> select * from items where name like 'uni%';
++----+----------+--------------------------------+--------+-------+-------------+
+| id | name     | description                    | price  | stock | category_id |
++----+----------+--------------------------------+--------+-------+-------------+
+|  2 | uniklooh | bajunya keren sekali beli dong | 500000 |    50 |           2 |
++----+----------+--------------------------------+--------+-------+-------------+
+1 row in set (0.00 sec)
+
+MariaDB [myshop]> select * categories;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'categories' at line 1
+MariaDB [myshop]> select * from categories;
++----+---------+
+| id | name    |
++----+---------+
+|  1 | gedget  |
+|  2 | cloth   |
+|  3 | men     |
+|  4 | women   |
+|  5 | branded |
++----+---------+
+5 rows in set (0.00 sec)
+
+MariaDB [myshop]> select * from items;
++----+------------+--------------------------------+---------+-------+-------------+
+| id | name       | description                    | price   | stock | category_id |
++----+------------+--------------------------------+---------+-------+-------------+
+|  1 | samsungb60 | hape keren dari merek samsung  |  400000 |   100 |           1 |
+|  2 | uniklooh   | bajunya keren sekali beli dong |  500000 |    50 |           2 |
+|  3 | IMOwatch   | jamnya keren sekali beli dong  | 2000000 |    10 |           1 |
++----+------------+--------------------------------+---------+-------+-------------+
+3 rows in set (0.00 sec)
+
+MariaDB [myshop]> select items.name, items.description, items.price, items.stock, items.category_id, categories.name from items join categories on items.category_id = categories.id;
++------------+--------------------------------+---------+-------+-------------+--------+
+| name       | description                    | price   | stock | category_id | name   |
++------------+--------------------------------+---------+-------+-------------+--------+
+| samsungb60 | hape keren dari merek samsung  |  400000 |   100 |           1 | gedget |
+| IMOwatch   | jamnya keren sekali beli dong  | 2000000 |    10 |           1 | gedget |
+| uniklooh   | bajunya keren sekali beli dong |  500000 |    50 |           2 | cloth  |
++------------+--------------------------------+---------+-------+-------------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [myshop]> select * items;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'items' at line 1
+MariaDB [myshop]> select * from items;
++----+------------+--------------------------------+---------+-------+-------------+
+| id | name       | description                    | price   | stock | category_id |
++----+------------+--------------------------------+---------+-------+-------------+
+|  1 | samsungb60 | hape keren dari merek samsung  |  400000 |   100 |           1 |
+|  2 | uniklooh   | bajunya keren sekali beli dong |  500000 |    50 |           2 |
+|  3 | IMOwatch   | jamnya keren sekali beli dong  | 2000000 |    10 |           1 |
++----+------------+--------------------------------+---------+-------+-------------+
+3 rows in set (0.00 sec)
+
+no 5
+MariaDB [myshop]> update items set price = 2500000 where id = 1;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [myshop]> select * from items;
++----+------------+--------------------------------+---------+-------+-------------+
+| id | name       | description                    | price   | stock | category_id |
++----+------------+--------------------------------+---------+-------+-------------+
+|  1 | samsungb60 | hape keren dari merek samsung  | 2500000 |   100 |           1 |
+|  2 | uniklooh   | bajunya keren sekali beli dong |  500000 |    50 |           2 |
+|  3 | IMOwatch   | jamnya keren sekali beli dong  | 2000000 |    10 |           1 |
++----+------------+--------------------------------+---------+-------+-------------+
+3 rows in set (0.00 sec)
